@@ -16,7 +16,7 @@ let timeOfDay = (myHours) => {
     }
 };
 
-const getTimeRemaining = (deadline) => {
+const getDateRemaining = (deadline) => {
     let dateStop = new Date(deadline).getTime();
     let dateNow = new Date().getTime();
     let timeRemaining = (dateStop - dateNow)/1000;
@@ -25,14 +25,28 @@ const getTimeRemaining = (deadline) => {
     return day;
 };
 
+
+const correctsWordEndings = (num, array) => { 
+    switch (true) {
+      case +((num += '').substr(-2)) > 10  &&  
+      +((num += '').substr(-2)) <= 20 : 
+      return num  + ' ' + array[2];
+      case num % 10 === 0: return num  + ' ' + array[2];
+      case num % 10 === 1: return num  + ' ' + array[0];
+      case num % 10 < 5: return num  + ' ' + array[1];
+      default: return num  + ' ' + array[2];
+    }
+  };
+
 const updateClock = () => {
-    console.log('start');
-    let getTime = getTimeRemaining();
-    time.textContent = `${timeOfDay(new Date().getHours())}
-    Сегодня: ${weekday.toUpperCase()[0]}${weekday.slice(1)}
-    Текущее время: ${new Date().toLocaleTimeString("en", {hour: "numeric", minute: "numeric", second: "numeric"})}
-    До нового года осталось ${getTimeRemaining(`01 january ${new Date().getFullYear()+1}`)} дней`;
-    if (getTime.timeRemaining <= 0) {
+    let getDate = getDateRemaining();
+    time.innerHTML = `${timeOfDay(new Date().getHours())} <br>
+    Сегодня: ${weekday.toUpperCase()[0]}${weekday.slice(1)} <br>
+    Текущее время: ${new Date().toLocaleTimeString("en", {hour: "numeric", minute: "numeric", second: "numeric"})} <br>
+    До нового года осталось ${
+    correctsWordEndings(getDateRemaining(`01 january ${new Date().getFullYear()+1}`), ['день', 'дня', 'дней'])}`;
+
+    if (getDate.timeRemaining <= 0) {
         clearInterval(startTimer);            
     }
     
