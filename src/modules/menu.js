@@ -3,10 +3,11 @@ const menu = () => {
     const menu = document.querySelector('menu');
     const closeBtn = menu.querySelector('.close-btn');
     const menuItems = menu.querySelectorAll('ul > li > a');
+    let thisBottomBlock = 'not known';
     let num = 0;
     let count = 0;
     let idInterval;
-    let stop = 2;
+
 
     const handleMenu = (event) => {
         
@@ -33,21 +34,20 @@ const menu = () => {
 
         console.log(count);
 
-        if ((stop == 0 || stop == 2) && num < count) {
+        if ((thisBottomBlock == 'not known' || thisBottomBlock == 'yes') && num < count) {
             num = num + 20;
             document.documentElement.scrollTop = num;
-            stop = 0;
-        } else if ((stop == 1 || stop == 2) && num > count) {
+            thisBottomBlock = 'yes';
+        } else if ((thisBottomBlock == 'not known' || thisBottomBlock == 'no') && num > count) {
             num = num - 20;
-            stop = 1;
+            thisBottomBlock = 'no';
             document.documentElement.scrollTop = num;
             console.log(num);
         } else {
             console.log(count);
             document.documentElement.scrollTop = count;
             cancelAnimationFrame(idInterval);
-            // num = 0;
-            stop = 2;
+            thisBottomBlock = 'not known';
         }
 
     };
