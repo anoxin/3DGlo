@@ -28,6 +28,7 @@ const timer = (deadline) => {
         
     };
 
+    updateClock();
     let startTimer = setInterval(updateClock, 1000); 
     
 
