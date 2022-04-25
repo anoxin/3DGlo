@@ -3,16 +3,16 @@ const menu = () => {
     const menu = document.querySelector('menu');
     const closeBtn = menu.querySelector('.close-btn');
     const menuItems = menu.querySelectorAll('ul > li > a');
-    let thisBottomBlock = 'not known';
+    let BottomBlock = '';
     let num = 0;
     let count = 0;
+    let temp = 50;
+    let initialNum;
     let idInterval;
 
 
     const handleMenu = (event) => {
-        
         menu.classList.toggle('active-menu');
-        
     };
 
     menuBts.addEventListener('click', handleMenu);
@@ -23,6 +23,9 @@ const menu = () => {
             event.preventDefault();
             let blockId = document.querySelector(event.target.getAttribute('href'));
             count = blockId.getBoundingClientRect().top;
+            num = document.documentElement.scrollTop;
+            initialNum = num;
+            BottomBlock = '';
             animation();
             handleMenu();
         });
@@ -32,22 +35,17 @@ const menu = () => {
         
         idInterval = requestAnimationFrame(animation);
 
-        console.log(count);
-
-        if ((thisBottomBlock == 'not known' || thisBottomBlock == 'yes') && num < count) {
-            num = num + 20;
+        if ( num < (count + initialNum - temp) && (BottomBlock === true || BottomBlock === '')) {
+            num = num + temp;
             document.documentElement.scrollTop = num;
-            thisBottomBlock = 'yes';
-        } else if ((thisBottomBlock == 'not known' || thisBottomBlock == 'no') && num > count) {
-            num = num - 20;
-            thisBottomBlock = 'no';
+            BottomBlock = true;
+        } else if (num > (count + initialNum + temp) && (BottomBlock === false || BottomBlock == '')) {
+            num = num - temp;
             document.documentElement.scrollTop = num;
-            console.log(num);
+            BottomBlock = false;
         } else {
-            console.log(count);
-            document.documentElement.scrollTop = count;
+            document.documentElement.scrollTop = count + initialNum;
             cancelAnimationFrame(idInterval);
-            thisBottomBlock = 'not known';
         }
 
     };
