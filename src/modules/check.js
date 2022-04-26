@@ -30,7 +30,7 @@ const check = () => {
 
     inputsPhone.forEach(function(item) {
         item.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9\(\)\-]/, "");
+            e.target.value = e.target.value.replace(/[^0-9\(\)\-\+]/, "");
         });
 
     });
