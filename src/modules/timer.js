@@ -14,7 +14,7 @@ const timer = (deadline) => {
         return { timeRemaining, hours, minutes, seconds };
     };
 
-    const updateClock = () => {
+    const updateClock = (noSetInterval) => {
         console.log('start');
         let getTime = getTimeRemaining();
         if (getTime.timeRemaining > 0) {
@@ -22,13 +22,13 @@ const timer = (deadline) => {
             timerMinutes.textContent = getTime.minutes < 10 ? '0' + getTime.minutes : getTime.minutes;
             timerSeconds.textContent = getTime.seconds < 10 ? '0' + getTime.seconds : getTime.seconds;            
         }
-        if (getTime.timeRemaining <= 0) {
+        if (getTime.timeRemaining <= 0 && noSetInterval == false) {
             clearInterval(startTimer);            
         }
         
     };
-
-    updateClock();
+    
+    updateClock(true);
     let startTimer = setInterval(updateClock, 1000); 
     
 
