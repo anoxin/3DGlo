@@ -51,4 +51,3 @@ const modal = () => {
 
 export default modal;
 
-console.dir(screen.width);
