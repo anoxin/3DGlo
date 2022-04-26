@@ -2,7 +2,9 @@ const menu = () => {
     const menuBts = document.querySelector('.menu');
     const menu = document.querySelector('menu');
     const closeBtn = menu.querySelector('.close-btn');
-    const menuItems = menu.querySelectorAll('ul > li > a');
+    const menuItems = Array.prototype.slice.call(menu.querySelectorAll('ul > li > a')).
+    concat(Array.prototype.slice.call(document.querySelectorAll('main > a[href="#service-block"]')));
+ 
     let BottomBlock = '';
     let num = 0;
     let count = 0;
@@ -22,12 +24,17 @@ const menu = () => {
         menuItem.addEventListener('click', (event) => {
             event.preventDefault();
             let blockId = document.querySelector(event.target.getAttribute('href'));
+            if (event.target == document.querySelector('img[src="images/scroll.svg"]')) {
+                blockId = document.querySelector('#service-block');
+            }
             count = blockId.getBoundingClientRect().top;
             num = document.documentElement.scrollTop;
             initialNum = num;
             BottomBlock = '';
             animation();
-            handleMenu();
+            if (event.target !== document.querySelector('img[src="images/scroll.svg"]')) {
+                handleMenu();
+            }
         });
     });
 
