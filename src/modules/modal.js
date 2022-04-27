@@ -1,7 +1,6 @@
 const modal = () => {
     const modal = document.querySelector('.popup');
     const buttons = document.querySelectorAll('.popup-btn');
-    const closeBtn = modal.querySelector('.popup-close');
     let count = 0;
     let close = false;
     let idInterval;
@@ -18,15 +17,10 @@ const modal = () => {
         });
     });
 
-    closeBtn.addEventListener('click', () => {
-        close = true;
-        count = 1;
-        if (screen.width > 768) {
-            animation();
-        } else {
-            modal.style.display = 'none';
+    modal.addEventListener('click', (e) => {
+        if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
+        modal.style.display = 'none';
         }
-        
     });
 
       const animation = () => {
