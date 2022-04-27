@@ -24,12 +24,11 @@ const timer = (deadline) => {
         }
         if (getTime.timeRemaining <= 0 && noSetInterval == false) {
             clearInterval(startTimer);            
-        }
-        
+        }  
     };
     
     updateClock(true);
-    let startTimer = setInterval(updateClock, 1000); 
+    let startTimer = setInterval(updateClock, 1000, false); 
     
 
 };
