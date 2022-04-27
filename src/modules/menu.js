@@ -1,4 +1,5 @@
 const menu = () => {
+    const main = document.querySelector('body');
     const menuBts = document.querySelector('.menu');
     const menu = document.querySelector('menu');
     const closeBtn = menu.querySelector('.close-btn');
@@ -17,14 +18,19 @@ const menu = () => {
         menu.classList.toggle('active-menu');
     };
 
-    menuBts.addEventListener('click', handleMenu);
-    closeBtn.addEventListener('click', handleMenu);
 
-    menuItems.forEach((menuItem) => {
-        menuItem.addEventListener('click', (event) => {
-            event.preventDefault();
-            let blockId = document.querySelector(event.target.getAttribute('href'));
-            if (event.target == document.querySelector('img[src="images/scroll.svg"]')) {
+    main.addEventListener('click', (e) => {
+        if (e.target.closest('.menu')) {
+            handleMenu();
+        }
+        if (e.target.closest('.close-btn')) {
+            handleMenu();
+        }
+        if (e.target.matches('ul > li > a') || e.target.closest('main > a[href="#service-block"]')) {
+            e.preventDefault();
+            console.log(e.target);
+            let blockId = document.querySelector(e.target.getAttribute('href'));
+            if (e.target == document.querySelector('img[src="images/scroll.svg"]')) {
                 blockId = document.querySelector('#service-block');
             }
             count = blockId.getBoundingClientRect().top;
@@ -32,10 +38,10 @@ const menu = () => {
             initialNum = num;
             BottomBlock = '';
             animation();
-            if (event.target !== document.querySelector('img[src="images/scroll.svg"]')) {
+            if (e.target !== document.querySelector('img[src="images/scroll.svg"]')) {
                 handleMenu();
             }
-        });
+        } 
     });
 
     const animation = () => {
