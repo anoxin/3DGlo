@@ -1,10 +1,6 @@
 const menu = () => {
-    const main = document.querySelector('body');
-    const menuBts = document.querySelector('.menu');
+    const body = document.body;
     const menu = document.querySelector('menu');
-    const closeBtn = menu.querySelector('.close-btn');
-    const menuItems = Array.prototype.slice.call(menu.querySelectorAll('ul > li > a')).
-    concat(Array.prototype.slice.call(document.querySelectorAll('main > a[href="#service-block"]')));
  
     let BottomBlock = '';
     let num = 0;
@@ -14,12 +10,15 @@ const menu = () => {
     let idInterval;
 
 
-    const handleMenu = (event) => {
+    const handleMenu = () => {
         menu.classList.toggle('active-menu');
     };
 
 
-    main.addEventListener('click', (e) => {
+    body.addEventListener('click', (e) => {
+        if (!e.target.closest('menu') && menu.classList.contains('active-menu')) {
+            handleMenu();
+        }
         if (e.target.closest('.menu')) {
             handleMenu();
         }

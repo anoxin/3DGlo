@@ -4,7 +4,7 @@ import modal from './modules/modal';
 import check from './modules/check';
 import tabs from './modules/tabs';
 
-timer('29 april 2022');
+timer('3 may 2022');
 menu();
 modal();
 check();
