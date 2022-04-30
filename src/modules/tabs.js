@@ -3,6 +3,11 @@ const tabs = () => {
     const tabs = document.querySelectorAll('.service-header-tab');
     const tabContent = document.querySelectorAll('.service-tab');
 
+    tabContent.forEach((elem, index) => {
+        if (index !== 0) {
+            elem.classList.add('d-none');
+        }
+    });
 
     tabPanel.addEventListener('click', (e) => {
         if (e.target.closest('.service-header-tab')) {
