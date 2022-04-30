@@ -13,6 +13,20 @@ const calc = (price = 100) => {
         let totalValue = 0;
         let calcCountValue = 1;
         let calcDayValue = 1;
+        let sum = 0;
+        let numbInterval;
+
+        const numbAnimate = () => {
+            numbInterval = requestAnimationFrame(numbAnimate);
+            sum = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue;
+            if (sum > totalValue) {
+                totalValue += 50;
+                
+            } else {
+                cancelAnimationFrame(numbInterval);
+            }
+            total.textContent = totalValue;
+        };
 
         if (calcCount.value > 1) {
             calcCountValue += calcCount.value / 10;
@@ -25,12 +39,11 @@ const calc = (price = 100) => {
         }
 
         if (calcType.value && calcSquare.value) {
-            totalValue = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue;
+            numbAnimate();
         } else {
             totalValue = 0;
         }
 
-        total.textContent = totalValue;
     };
     calcBlock.addEventListener('input', (e) => {
         if (e.target === calcType || e.target === calcSquare ||
