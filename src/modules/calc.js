@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const calc = (price = 100) => {
     const calcBlock = document.querySelector('.calc-block');
     const calcType = document.querySelector('.calc-type');
@@ -17,15 +19,19 @@ const calc = (price = 100) => {
         let numbInterval;
 
         const numbAnimate = () => {
-            numbInterval = requestAnimationFrame(numbAnimate);
-            sum = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue;
-            if (sum > totalValue) {
-                totalValue += 50;
-                
-            } else {
-                cancelAnimationFrame(numbInterval);
-            }
-            total.textContent = totalValue;
+            animate({
+                duration: 1000,
+                timing(timeFraction) {
+                  return timeFraction;
+                },
+                draw(progress) {
+                    sum = price * calcTypeValue * calcSquareValue * calcCountValue * calcDayValue;
+                    if (sum > totalValue) {
+                        totalValue += 50;
+                    }
+                    total.textContent = totalValue;
+                }
+            });
         };
 
         if (calcCount.value > 1) {
