@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const modal = () => {
     const modal = document.querySelector('.popup');
     const buttons = document.querySelectorAll('.popup-btn');
@@ -23,23 +25,21 @@ const modal = () => {
         }
     });
 
-      const animation = () => {
-        idInterval = requestAnimationFrame(animation);
-        if (close == false && count < 1) {
-            count = count + 0.05;
-            modal.style.opacity = count;
-        }
-        else if (close == true && count > 0) {
-            count = count - 0.05;
-            modal.style.opacity = count;
-        } else {
-            if (close == true && count < 0) {
-                modal.style.display = 'none';
+    const animation = () => {
+        animate({
+            duration: 1000,
+            timing(timeFraction) {
+              return timeFraction;
+            },
+            draw(progress) {
+              modal.style.opacity = progress;
             }
-            cancelAnimationFrame(idInterval);
-        }
-
+        });
     };
+
+ 
+
+
 
 };
 
