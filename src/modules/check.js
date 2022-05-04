@@ -14,12 +14,12 @@ const check = () => {
 
     inputsText.forEach(function(item) {
         item.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^а-яёА-ЯЁ\s\-]/, "");
+            e.target.value = e.target.value.replace(/[^а-яёА-ЯЁ\s]/, "");
         });
     });
 
     inputMessage.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^а-яёА-ЯЁ\s\-]/, "");
+        e.target.value = e.target.value.replace(/[^а-яёА-ЯЁ0-9\s\-\.\,\!\:\;\?\"\(\)]/, "");
     });
 
     inputsEmail.forEach(function(item) {
