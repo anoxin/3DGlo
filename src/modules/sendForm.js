@@ -3,7 +3,13 @@ import { validate } from "./validate";
 const sendForm = ({ formId, someElem = [] }) => {
     const form = document.getElementById(formId);
     const statusBlock = document.createElement('div');
-    const loadText = 'Загрузка...';
+    const loadAnimation = `<section>
+    <div class="sk-wandering-cubes">
+      <div class="sk-cube sk-cube-1"></div>
+      <div class="sk-cube sk-cube-2"></div>
+    </div>
+  </section>`;
+
     const errorText = 'Ошибка...';
     const successText = 'Спасибо! Наш менеджер с вами свяжется!';
 
@@ -23,7 +29,7 @@ const sendForm = ({ formId, someElem = [] }) => {
         const formData = new FormData(form);
         const formBody = {};
 
-        statusBlock.textContent = loadText;
+        statusBlock.innerHTML = loadAnimation;
         form.append(statusBlock);
 
         if (document.querySelectorAll('#form3 > div').length == 4) {
@@ -76,3 +82,4 @@ const sendForm = ({ formId, someElem = [] }) => {
 };
 
 export default sendForm;
+
