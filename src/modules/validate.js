@@ -1,31 +1,36 @@
 const validate  = (formElements) => {
-    const inputsText = document.querySelectorAll('input[placeholder="Ваше имя"]');
-    const inputMessage = document.querySelector('input[placeholder="Ваше сообщение"]');
-    const inputsEmail = document.querySelectorAll('input[type="email"]');
-    const inputsPhone = document.querySelectorAll('input[type="tel"]');
-    let num = (+(formElements[0].form.id).substring(4)-1);
-
     let success = true;
-
     
+    formElements.forEach((elem) => {
+        elem.setAttribute('required', '');
+        elem.addEventListener('input', (e) => {
+            e.target.classList.remove('borderRed');
+        });
 
-
-    if (/[^а-яёА-ЯЁ\s]/.test(inputsText[num].value) || inputsText[num].value == '') {
-        success = false;     
-    }
-    if (/[^a-zA-Z0-9\@\-\_\.\!\~\*\']/.test(inputsEmail[num].value) || inputsEmail[num].value == '') {
-        success = false;     
-    }
-    if (/[^0-9\(\)\-\+]/.test(inputsPhone[num].value) || inputsPhone[num].value == '') {
-        success = false;     
-    }
-    
-    if (formElements.length !== 3) {
-        if (/[^а-яёА-ЯЁ0-9\s\-\.\,\!\:\;\?\"\(\)]/.test(inputMessage.value) || inputMessage.value == '') {
-            success = false;     
+        if (elem.name == "user_name" && (/[^а-яёА-ЯЁ\s]/g.test(elem.value) || elem.value == '' || elem.value.length < 2 )) {
+            success = false;
+            elem.classList.add('borderRed'); 
+            elem.value = elem.value.replace(/[^а-яёА-ЯЁ\s]/g, "");
         }
-    }
+        if (elem.name == "user_email" && (/[^a-zA-Z0-9\@\-\_\.\!\~\*\']/.test(elem.value) || elem.value == '' ||
+         !/[a-zA-Z0-9\-\_\.\!\~\*\']{2,30}[\@][a-zA-Z0-9\-\_\!\~\*\']{2,30}[/.][a-zA-Z0-9\-\_\.\!\~\*\']{2,10}/.test(elem.value) )) {
+            success = false; 
+            elem.classList.add('borderRed');
+            elem.value = elem.value.replace(/[^a-zA-Z0-9\@\-\_\.\!\~\*\']/, ""); 
+        }
+        if (elem.name == "user_phone" && elem.value.length < 18) {
+            success = false; 
+            elem.classList.add('borderRed');    
+        }
+        if (formElements.length !== 3) {
+            if (elem.name == "user_message" && (/[^а-яёА-ЯЁ0-9\s\-\.\,\!\:\;\?\"\(\)]/g.test(elem.value))) {
+                success = false;  
+                elem.classList.add('borderRed');
+                elem.value = elem.value.replace(/[^а-яёА-ЯЁ\s]/g, "");    
+            }
+        }
 
+    });
 
 
     return success;

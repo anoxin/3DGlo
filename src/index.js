@@ -6,10 +6,12 @@ import tabs from './modules/tabs';
 import slider from './modules/slider';
 import calc from './modules/calc';
 import sendForm from './modules/sendForm';
+import cssAdd from './modules/cssAdd';
 
 
 document.querySelectorAll('form').forEach((elem) => {
     const formElemId = elem.id;
+    elem.setAttribute('novalidate', '');
     sendForm({
         formId: `${formElemId}`,
         someElem: [
@@ -21,7 +23,6 @@ document.querySelectorAll('form').forEach((elem) => {
     });
 });
 
-
 timer('12 may 2022');
 menu();
 modal();
@@ -29,3 +30,4 @@ check();
 tabs();
 slider();
 calc(100);
+cssAdd();
