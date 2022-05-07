@@ -25,16 +25,16 @@ const sendForm = ({ formId, someElem = [] }) => {
 
 
         formData.forEach((val, key) => {
-            if (val !== '') {
+            if (val != '') {
                 formBody[key] = val;
             }
             
         });
 
-        someElem.forEach(elem => {
 
+        someElem.forEach(elem => {
             const element = document.getElementById(elem.id);
-            if (elem.type === 'block') {
+            if (elem.type === 'block' && element.textContent != 0) {
                 formBody[elem.id] = element.textContent;
             } else if (elem.type === 'input') {
                 formBody[elem.id] = element.value;
@@ -72,7 +72,7 @@ const sendForm = ({ formId, someElem = [] }) => {
             submitForm(); 
         });
     } catch (error) {
-        console.log(error.message);
+        console.log(error.message); // выводит сообщение в консоль, если убрали форму
     }
 
     function maskPhone(selector, masked = '+7 (___) ___-__-__') {

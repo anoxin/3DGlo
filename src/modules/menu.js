@@ -26,8 +26,7 @@ const menu = () => {
             handleMenu();
         }
         if (e.target.matches('ul > li > a') || e.target.closest('main > a[href="#service-block"]')) {
-            e.preventDefault();
-            console.log(e.target);
+            e.preventDefault();;
             let blockId = document.querySelector(e.target.getAttribute('href'));
             if (e.target == document.querySelector('img[src="images/scroll.svg"]')) {
                 blockId = document.querySelector('#service-block');
