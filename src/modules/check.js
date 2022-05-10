@@ -16,50 +16,64 @@ const check = () => {
     inputsText.forEach(function(item) {
         item.addEventListener('blur', (e) => {
             let newArr = [];
-
-            // e.target.value = e.target.value.replace(/[^а-яёА-ЯЁ\s\-]/g, "").trim();
-            // e.target.value = e.target.value.replace(/[\s]+[\-]+[\s]+/g, "").trim();
-            // // e.target.value = e.target.value.replace(/^[\-]+/g, "").trim();
-            // // e.target.value = e.target.value.replace(/[\-]+$/g, "").trim();
-            // e.target.value = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1).toLowerCase();
-            // e.target.value = e.target.value.replace(/[\s]+/g, " ");
-
-            // const testName = /([а-яёА-ЯЁ]+)/g;
-
-            // e.target.value = e.target.value.replace(testName, (str, $1, $2, $3) => {
-            //     return  `${$1}`;
-
-                
-            // });
-
+            let lastSivol = ' ';
             let textArr = e.target.value.match(/[а-яёА-ЯЁ]+\s*\-?/g);
-            textArr.forEach((elem) => {
-                elem = elem.replace(/^[\-]\-+/g, "");
-                elem = elem.substring(0, 1).toUpperCase() + elem.substring(1).toLowerCase();
-                newArr.push(elem);
-            });
-            e.target.value = newArr.join('');
+            const checkName = () => {
+                textArr.forEach((elem) => {
+                    elem = elem.replace(/[\s]+\-/g, "-");
+                    elem = elem.replace(/[\s]+/g, " ");
+                    if (lastSivol == ' ') {
+                        elem = elem.substring(0, 1).toUpperCase() + elem.substring(1).toLowerCase();
+                    } else {
+                        elem = elem.toLowerCase();
+                    }
+                    newArr.push(elem);
+                    lastSivol = elem.slice(-1);
+                });
+                e.target.value = newArr.join('');
+                e.target.value = e.target.value.replace(/[\-]+$/g, "").trim();
 
-
-
-
+            };
+            if (textArr != null) {
+                checkName();
+            } else {
+                e.target.value = '';
+            }
+  
         });
     });
 
     inputMessage.addEventListener('blur', (e) => {
         e.target.value = e.target.value.replace(/[^а-яёА-ЯЁ\s\-]/g, "").trim();
         e.target.value = e.target.value.replace(/[\s]+/g, " ");
+        e.target.value = e.target.value.replace(/^[\-]+/g, "").trim();
+        e.target.value = e.target.value.replace(/[\-]+$/g, "").trim();
+        e.target.value = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1).toLowerCase()
     });
 
     inputsEmail.forEach(function(item) {
         item.addEventListener('blur', (e) => {
             e.target.value = e.target.value.replace(/[^a-zA-Z0-9\@\-\_\.\!\~\*\']/g, "");
+            e.target.value = e.target.value.replace(/^[\-]+/g, "").trim();
+            e.target.value = e.target.value.replace(/[\-]+$/g, "").trim();
+            e.target.value = e.target.value.replace(/(\-*\_*\.*\!*\~*\**\'*)/g, (str, $1) => {
+                return  `${$1.slice(-1)}`;       
+            });
+            e.target.value = e.target.value.replace(/(\@*)/g, (str, $1) => {
+                return  `${$1.slice(-1)}`;       
+            });
+
         });
     });
 
     inputsPhone.forEach(function(item) {
         item.addEventListener('blur', (e) => {
             e.target.value = e.target.value.replace(/[^0-9\(\)\-\+]/g, "");
+            e.target.value = e.target.value.replace(/^[\-]+/g, "").trim();
+            e.target.value = e.target.value.replace(/[\-]+$/g, "").trim();
+            e.target.value = e.target.value.replace(/([\(\)\-\+])+/g, (str, $1) => {
+                return  `${$1.slice(-1)}`;       
+            });
         });
 
     });
