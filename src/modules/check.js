@@ -15,6 +15,9 @@ const check = () => {
         item.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^а-яёА-ЯЁ\s]/, "");
         });
+        item.addEventListener('blur', (e) => {
+            e.target.value = e.target.value.trim();
+        });
     });
 
     inputMessage.addEventListener('input', (e) => {
