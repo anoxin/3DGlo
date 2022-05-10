@@ -8,7 +8,7 @@ const validate  = (formElements) => {
         });
 
         const checkValidate = () => {
-            if (elem.name == "user_name" && (/[^а-яёА-ЯЁ\s]/g.test(elem.value) || elem.value == '' || elem.value.length < 2 )) {
+            if (elem.name == "user_name" && (/[^а-яёА-ЯЁ\s]/g.test(elem.value) || /^[\s]+/.test(elem.value) || elem.value == '' || elem.value.length < 2 )) {
                 success = false;
                 elem.classList.add('validate-error'); 
                 elem.value = elem.value.replace(/[^а-яёА-ЯЁ\s]/g, "");
