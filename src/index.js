@@ -10,5 +10,6 @@ menu();
 modal();
 check();
 tabs();
-slider();
-
+slider({portfolioContent: "portfolio-content", portfolioDotsClass: "portfolio-dots",
+slidesDots: "dot", slidesItem: "portfolio-item", portfolioBtn: "portfolio-btn", arrowLeft: "prev", 
+ arrowRight: "next", slideActive: "portfolio-item-active", dotActive: "dot-active"});
